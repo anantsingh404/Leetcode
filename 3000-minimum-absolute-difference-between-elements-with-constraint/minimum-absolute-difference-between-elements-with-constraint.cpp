@@ -17,25 +17,18 @@ public:
         
         if( !st.empty() && j>=x)
         {
-          auto itr=st.upper_bound(nums[j]);
-          if(itr==st.end())
-          {
-            --itr;
-          }
+          
           auto itr2=st.lower_bound(nums[j]); 
           if(itr2==st.end())
           {
             --itr2;
           }
-         // auto itr3;
           if(itr2!=st.begin())
           {
-auto itr3=itr2;
---itr3;
-ans=min(ans,abs((*itr3)-nums[j])); 
+         auto itr3=itr2;
+         --itr3;
+         ans=min(ans,abs((*itr3)-nums[j])); 
           }
-          cout<<*itr<< " "<<*itr2<<endl;
-          ans=min(ans,abs((*itr)-nums[j]));
           ans=min(ans,abs((*itr2)-nums[j])); 
           
         }
