@@ -47,7 +47,7 @@ public:
             st.top()[metal]+=count;
         }
      }
-     map<string,int>res=st.top();
+     pappu res=st.top();
      vector<string>ans;
      for(auto &itr:res)
      {
