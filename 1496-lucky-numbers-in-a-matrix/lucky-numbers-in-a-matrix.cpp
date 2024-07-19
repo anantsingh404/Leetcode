@@ -8,19 +8,17 @@ public:
      {
         for(int  j=0;j<m;j++)
         {
-        int x=i;
         int y=0;
         int mini=INT_MAX;
+        int maxi=INT_MIN;
         for(int y=0;y<m;y++)
         {
             mini=min(mini,matrix[i][y]);
         }
-        int maxi=INT_MIN;
-        x=0;
-        y=j;
-        for(int x=0;x<n;x++)
+        y=0;
+        for(int y=0;y<n;y++)
         {
-            maxi=max(maxi,matrix[x][y]);
+            maxi=max(maxi,matrix[y][j]);
         }
         if(matrix[i][j]==mini && matrix[i][j]==maxi)
         {
