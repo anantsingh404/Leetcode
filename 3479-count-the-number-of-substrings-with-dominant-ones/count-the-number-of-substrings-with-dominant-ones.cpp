@@ -12,7 +12,7 @@ public:
                 int ones = prefix[j] - (i==0 ? 0 : prefix[i-1]);
                 int zeros = (j-i+1) - ones;
 
-                if(ones >= zeros*zeros)     // dominant substring [i, j]
+                if(ones >= zeros*zeros)
                 {
                     ans++;
                     int k = sqrt(ones);
@@ -24,7 +24,14 @@ public:
                 }
                 else
                 j += (zeros*zeros - ones - 1);
+
+
+                if(zeros*zeros>(len-i-zeros))
+                {
+                    break;
+                }
             }
+
         }
 
         return ans; 
