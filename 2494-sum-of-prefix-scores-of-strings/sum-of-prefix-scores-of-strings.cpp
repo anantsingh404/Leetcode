@@ -1,64 +1,85 @@
-struct  t{
-    struct t *arr[26];
+struct trienode{
+    struct trienode * arr[26];
     int count;
-    bool leaf;
-    t() {
-        for (int i = 0; i < 26; i++) {
-            arr[i] = NULL;
+    trienode()
+    {
+        for(int i=0;i<26;i++)
+        {
+            arr[i]=nullptr;
         }
-        leaf = false;
         count=0;
     }
 };
-
-
 class Solution {
-    private:
-    t *x;
+private:
+trienode * root;
 public:
-   Solution(){
-    x=new t();
-   }
-   void insert(string &word)
-   {
-     int curr = 0; 
-     //int count=0;
-        t* node = x; 
-        for (int i = 0; i < word.length(); i++) {
-            curr = word[i] - 'a';
-            if(node->arr[curr] == NULL) node->arr[curr] = new t();
-            node = node->arr[curr];
-            node->count++;
-        }
-        node->leaf = true; 
-   }
-   int search(string word) {
-        int curr = 0; 
-        int sum=0;
-        t* node = x; 
-        for (int i = 0; i < word.length(); i++) {
-            curr = word[i] - 'a'; 
-            if(node->arr[curr] == NULL)
-            {
-                break;
-            } 
 
-            node = node->arr[curr];
-            sum+=node->count;
+  Solution()
+   {
+    root=new trienode();
+   }
+void insert(string &s)
+{
+    trienode * y=root;
+
+    for(int i=0;i<s.size();i++)
+    {
+        int x=s[i]-'a';
+        if(y->arr[x]==NULL)
+        {
+            y->arr[x]=new trienode();
+             y=y->arr[x];
+            ++(y->count);
+           
+            
         }
-        return sum;  
+        else
+        {   y=y->arr[x];
+            ++(y->count);
+            
+        }
+        
+        
+       
+        
     }
+}
+int search(string &s)
+{
+    int sum=0;
+    trienode * y=root;
+    for(int i=0;i<s.size();i++)
+    {
+        int x=s[i]-'a';
+        if(y->arr[x]==nullptr)
+        {   
+            return sum;
+        }
+        else
+
+        {    y=y->arr[x];
+             sum+=(y->count);
+            
+            
+           
+        }
+    }
+    return sum;
+
+}
+
     vector<int> sumPrefixScores(vector<string>& words) {
-      for(int i=0;i<words.size();i++)
-      {
-        insert(words[i]);
-      }
-      vector<int>ans;
-      for(int i=0;i<words.size();i++)
-      {
-        int x=search(words[i]);
-        ans.push_back(x);
-      }
-      return ans;
+        
+        for(int i=0;i<words.size();i++)
+        {
+            insert(words[i]);
+        }
+        vector<int>ans;
+       for(int i=0;i<words.size();i++)
+        {
+        ans.push_back(search(words[i]));
+        }
+        return ans;
     }
 };
