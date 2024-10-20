@@ -46,7 +46,7 @@ public:
                 x='f';
             }
             st.pop();
-            cout<<x<<endl;
+           // cout<<x<<endl;
             st.push(x);
         }
 
