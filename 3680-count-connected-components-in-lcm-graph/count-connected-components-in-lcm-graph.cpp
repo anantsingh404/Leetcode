@@ -57,7 +57,7 @@ public:
     }
     int countComponents(vector<int>& nums, int threshold) {
         int num_components = 0;
-        sort(nums.begin(),nums.end());
+      sort(nums.begin(),nums.end());
         vector<int> candidate_nodes;
         for(int elem: nums)
         {
