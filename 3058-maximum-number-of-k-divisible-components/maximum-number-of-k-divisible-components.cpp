@@ -12,12 +12,13 @@ int solve(int idx,int parent)
         if(itr!=parent)
         {
             int x=solve(itr,idx);
-            if(x==0)
-            {
-                ++count;
-            }
+            
             temp+=x;
         }
+    }
+    if(temp%kk==0)
+    {
+        ++count;
     }
    
     return temp%kk;
@@ -36,7 +37,7 @@ int solve(int idx,int parent)
             adj[y].push_back(x);
         }
         solve(0,-1);
-        return count+1;
+        return count;
 
 
     }
