@@ -1,75 +1,63 @@
 class Solution {
 public:
-    vector<vector<int>> createGraph(const vector<vector<int>>& edges, int numNodes) {
-    vector<vector<int>> graph(numNodes);
-    
-    for (const auto& edge : edges) {
-        int u = edge[0];
-        int v = edge[1];
-        
-        // Add edge u -> v
-        graph[u].push_back(v);
-        // Assuming it's an undirected graph, also add edge v -> u
-        graph[v].push_back(u);
-    }
-    
-    return graph;
-}
+pair<int, int> bfs(int start, const vector<vector<int>> &graph) {
+    int n = graph.size();
+    vector<int> dist(n, -1);
+    queue<int> q;
 
-// Helper function for DFS traversal to find the farthest node and its distance
-void dfs(int node, const vector<vector<int>>& graph, int parent, int& farthestNode, int& maxDistance, int cd) {
-    for (int neighbor : graph[node]) {
-        if (neighbor != parent) {
-            // Recursively visit neighbors
-            dfs(neighbor, graph, node, farthestNode, maxDistance, cd + 1);
+    dist[start] = 0;
+    q.push(start);
+
+    int farthestNode = start;
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+
+        for (int neighbor : graph[node]) {
+            if (dist[neighbor] == -1) { // Not visited
+                dist[neighbor] = dist[node] + 1;
+                q.push(neighbor);
+                farthestNode = neighbor;
+            }
         }
     }
-    
-    // Update farthestNode and maxDistance if current node is farther
-    if (maxDistance < cd) {
-        farthestNode = node;
-        maxDistance = cd;
-    }
+
+    return {farthestNode, dist[farthestNode]};
 }
 
-int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {
-    // Create graphs from edge lists using vectors
-    vector<vector<int>> graph1 = createGraph(edges1, edges1.size()+1);
-    vector<vector<int>> graph2 = createGraph(edges2, edges2.size()+1);
-    
-    int farthestNode1 = 0;
-    int maxDistance1 = 0;
-    
-    // Find farthest node and its distance in graph1
-    dfs(0, graph1, -1, farthestNode1, maxDistance1, 0);
-    dfs(farthestNode1, graph1, -1, farthestNode1, maxDistance1, 0);
-    int x=0;
-    int y=0;
-    x=maxDistance1;
-    // Adjust maxDistance1 for diameter calculation
-    if (maxDistance1 % 2) {
-        maxDistance1 = maxDistance1 / 2 + 1;
-    } else {
-        maxDistance1 = maxDistance1 / 2;
-    }
-    
-    int farthestNode2 = 0;
-    int maxDistance2 = 0;
-    
-    // Find farthest node and its distance in graph2
-    dfs(0, graph2, -1, farthestNode2, maxDistance2, 0);
-   
-    dfs(farthestNode2, graph2, -1, farthestNode2, maxDistance2, 0);
-     y=maxDistance2;
-    // Adjust maxDistance2 for diameter calculation
-    if (maxDistance2 % 2) {
-        maxDistance2 = maxDistance2 / 2 + 1;
-    } else {
-        maxDistance2 = maxDistance2 / 2;
-    }
-    y=max(x,y);
-    // Return the minimum diameter after merge
-    return max(maxDistance1 + maxDistance2 + 1,y);
-}
+// Function to calculate the diameter of a graph
+int calculateDiameter(const vector<vector<int>> &graph) {
+    // Step 1: Find the farthest node from any starting point (e.g., node 0)
+    pair<int, int> firstBFS = bfs(0, graph);
 
+    // Step 2: Perform BFS again from the farthest node found
+    pair<int, int> secondBFS = bfs(firstBFS.first, graph);
+
+    // The distance in the second BFS is the diameter
+    return secondBFS.second;
+}
+    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {
+        int n1=edges1.size()+1;
+          vector<vector<int>> graph1(n1);
+
+    for (auto &edge : edges1) {
+        graph1[edge[0]].push_back(edge[1]);
+        graph1[edge[1]].push_back(edge[0]);
+    }
+
+         int n2=edges2.size()+1;
+  
+    
+    vector<vector<int>> graph2(n2);
+
+    for (auto &edge : edges2) {
+        graph2[edge[0]].push_back(edge[1]);
+        graph2[edge[1]].push_back(edge[0]);
+        
+    }
+    int diameter1 = calculateDiameter(graph1);
+    int diameter2 = calculateDiameter(graph2);
+    int x=max(diameter1,diameter2);
+    return max(x,1+diameter1/2+diameter1%2+diameter2/2+diameter2%2);
+    }
 };
