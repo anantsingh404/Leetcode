@@ -28,7 +28,6 @@ public:
         }
       }
       vector<int>dp(32,0);
-      vector<int>zero(32,0);
       int n=nums1.size();
       int m=nums2.size();
       int ans=0;
@@ -43,7 +42,6 @@ public:
         {
             ans=ans|(1<<i);
         }
-       // zero[i]=x*p+y*q;
       } 
       return ans;
 
