@@ -1,69 +1,41 @@
 class Solution {
 public:
-    long long countOfSubstrings(string word, long long k) {
-        long long n = word.size();
-        long long j = 0, ans = 0;
-        long long consonantCount = 0;
-        long long vowelMap[26] = {0};    // Array for vowel counts
-        long long tempVowelMap[26] = {0}; // Array for temporary vowel counts
-        long long flag = 0;
-        
-        for (long long i = 0; i < n; i++) {
-            // Check if it's a consonant
-            if (word[i] != 'a' && word[i] != 'e' && word[i] != 'i' && word[i] != 'o' && word[i] != 'u') {
-                consonantCount++;
+    long long countOfSubstrings(string word, int k) {
+     int frequencies[2][128] = {};
+        frequencies[0]['a'] = frequencies[0]['e'] = frequencies[0]['i'] = frequencies[0]['o'] = frequencies[0]['u'] = 1;
+
+        long long response = 0;
+        int currentK = 0, vowels = 0, extraLeft = 0, left = 0;
+
+        for (int right = 0; right < word.length(); right++) {
+            char rightChar = word[right];
+
+            if (frequencies[0][rightChar]) {
+                if (++frequencies[1][rightChar] == 1) vowels++;
             } else {
-                vowelMap[word[i] - 'a']++;  // Increment vowel count in vowelMap
+                currentK++;
             }
 
-            // Adjust the sliding window if consonant count exceeds 'k'
-            while (j <= i && consonantCount > k) {
-                if (word[j] != 'a' && word[j] != 'e' && word[j] != 'i' && word[j] != 'o' && word[j] != 'u') {
-                    consonantCount--;
+            while (currentK > k) {
+                char leftChar = word[left++];
+                if (frequencies[0][leftChar]) {
+                    if (--frequencies[1][leftChar] == 0) vowels--;
                 } else {
-                    if (j >= flag) {
-                        tempVowelMap[word[j] - 'a']++;  // Update tempVowelMap when we remove vowels
-                    }
+                    currentK--;
                 }
-                j++;
+                extraLeft = 0;
             }
 
-            flag = max(flag, j);
-           
-            // Adjust flag polong longer to ensure we are managing vowel conditions properly
-            while (flag <= i && (word[flag] == 'a' || word[flag] == 'e' || word[flag] == 'i' || word[flag] == 'o' || word[flag] == 'u')) {
-                if (vowelMap[word[flag] - 'a'] - tempVowelMap[word[flag] - 'a'] > 1) {
-                    tempVowelMap[word[flag] - 'a']++;
-                    flag++;
-                } else {
-                    break;
-                }
+            while (vowels == 5 && currentK == k && left < right && frequencies[0][word[left]] && frequencies[1][word[left]] > 1) {
+                extraLeft++;
+                frequencies[1][word[left++]]--;
             }
 
-            // Check condition: consonant count should be exactly 'k'
-            bool validSubstring = true;
-            for (long long x = 0; x < 26; x++) {
-                char ch = 'a' + x;
-                if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
-                    if (vowelMap[x] == tempVowelMap[x]) {
-                        validSubstring = false;
-                        break;
-                    }
-                }
+            if (currentK == k && vowels == 5) {
+                response += (1 + extraLeft);
             }
-
-            // Debugging output
-           // cout << vowelMap['o' - 'a'] << " " << tempVowelMap['o' - 'a'] << " " << flag << " " << validSubstring << " " << consonantCount << endl;
-            
-            // If conditions are met, count this as a valid substring
-            if (flag >= j && validSubstring && consonantCount == k) {
-                ans += flag - j + 1;
-            }
-            
-            // Debugging output
-           // cout << ans << endl;
         }
-        
-        return ans;
+
+        return response;   
     }
 };
