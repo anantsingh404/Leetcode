@@ -12,7 +12,7 @@ public:
     }
 
     int processed = 0;
-    int k=40000;
+    int k=10000;
     while (!q.empty() && k--) {
         bool canMake = true;
         auto [recipe, idx] = q.front();
