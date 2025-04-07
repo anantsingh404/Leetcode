@@ -4,12 +4,15 @@ int n;
 int sum=0;
 bool res=false;
 int solve(int idx,vector<int>&nums,vector<vector<int>>&dp,int s)
+{   if(res)
 {
+    return 1;
+}
     if(idx>=n &&  s==sum )
     {
         return 1;
     }
-    if(idx>=n || s>sum)
+    if(idx>=n || s>sum) 
     {
         return 0;
     }
