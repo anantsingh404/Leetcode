@@ -3,10 +3,11 @@ public:
     vector<string> getLongestSubsequence(vector<string>& words, vector<int>& groups) {
        vector<string>ans;
        int i=0;
-       while(i<words.size())
+       int n=words.size();
+       while(i<n)
        {
         int j=i;
-        while(j<words.size() && groups[j]==groups[i])
+        while(j<n && groups[j]==groups[i])
         {
             j++;
         }
