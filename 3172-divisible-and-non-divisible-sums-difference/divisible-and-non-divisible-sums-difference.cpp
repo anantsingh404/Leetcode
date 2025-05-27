@@ -2,15 +2,14 @@ class Solution {
 public:
     int differenceOfSums(int n, int m) {
       int sum=((n)*(n+1))/2;  
-      int x=0;
-      for(int i=1;i<=1000;i++)
-      {
-        if(m*i<=n)
-        {
-            x+=m*i;
-            sum-=m*i;
-        }
-      }
-      return sum-x;
+      
+      int y=n/m;
+      int z=(y*m*(y+1))/2;
+      sum-=z;
+      cout<<sum<<" "<<z<<endl;
+
+
+
+      return sum-z;
     }
 };
