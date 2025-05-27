@@ -6,7 +6,7 @@ public:
       int y=n/m;
       int z=(y*m*(y+1))/2;
       sum-=z;
-      cout<<sum<<" "<<z<<endl;
+      //cout<<sum<<" "<<z<<endl;
 
 
 
