@@ -32,8 +32,9 @@ public:
         vector<int> count1 = build(edges1, color1);
         vector<int> count2 = build(edges2, color2);
         vector<int> res(edges1.size() + 1);
+        int x=max(count2[0],count2[1]);
         for (int i = 0; i < n; i++) {
-            res[i] = count1[color1[i]] + max(count2[0], count2[1]);
+            res[i] = count1[color1[i]] + x;
         }
         return res;
     }
