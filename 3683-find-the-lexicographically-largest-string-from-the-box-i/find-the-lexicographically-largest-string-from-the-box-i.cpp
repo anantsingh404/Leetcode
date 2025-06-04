@@ -1,7 +1,7 @@
 class Solution {
 public:
     string answerString(string word, int nf) {
-      int n=word.size();
+       int n=word.size();
       int count=n-nf+1;
       char xx='a';
       if(nf==1)
