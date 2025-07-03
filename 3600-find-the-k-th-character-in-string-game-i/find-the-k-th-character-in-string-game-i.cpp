@@ -1,16 +1,23 @@
 class Solution {
 public:
     char kthCharacter(int k) {
-       string x="a";
-        while(x.size()<k)
+      string x="a";
+      while(x.size()<500)
+      {
+        string t=x;
+        for(int i=0;i<t.size();i++)
         {
-            string y=x;
-            for(int i=0;i<x.size();i++)
+            if(t[i]=='z')
             {
-                y[i]=y[i]+1;
+                t[i]='a';
             }
-            x=x+y;
+            else
+            {
+                t[i]=t[i]+1;
+            }
         }
-        return x[k-1];
+        x+=t;
+      } 
+      return x[k-1]; 
     }
 };
