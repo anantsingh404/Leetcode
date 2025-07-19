@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<string> removeSubfolders(vector<string>& folder) {
-      sort(folder.begin(),folder.end());
+         sort(folder.begin(),folder.end());
       set<string>st;
       for(int i=0;i<folder.size();i++)
       {
