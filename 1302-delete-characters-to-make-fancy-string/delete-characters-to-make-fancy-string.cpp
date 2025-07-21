@@ -1,24 +1,24 @@
 class Solution {
 public:
     string makeFancyString(string s) {
-      string temp;
-      int count=0;
-      int i=0;
-      while(i<s.size())
-      { if(!temp.empty())
+      string ans="";
+      if(s.size()<=2)
       {
-        if(temp.back()!=s[i])
-        {
-            count=0;
-        }
+        return s;
       }
-        if(temp.empty() || count<2)
+      ans.push_back(s[0]);
+      ans.push_back(s[1]);
+      for(int i=2;i<s.size();i++)
+      {
+        if(s[i]==s[i-1] && s[i]==s[i-2])
         {
-          temp.push_back(s[i]);
-          ++count;
+            continue;
         }
-        i++;
-      }
-      return temp;  
+        else
+        {
+            ans.push_back(s[i]);
+        }
+      } 
+      return ans; 
     }
 };
