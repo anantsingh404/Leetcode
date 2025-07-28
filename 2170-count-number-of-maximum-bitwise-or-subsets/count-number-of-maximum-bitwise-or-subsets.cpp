@@ -1,31 +1,30 @@
+
 class Solution {
 public:
-int count=0;
-int maxi=0;
-int n;
-    void solve(int idx,vector<int>&nums,int temp)
-    {    if(idx==n)
-        {   if(temp==maxi)
-        {
-            ++count;
-        }
-            return;
-        }
-       
-       
 
-        solve(idx+1,nums,temp|nums[idx]);
-        solve(idx+1,nums,temp);
+int solve(int idx,vector<int>&nums)
+{
+    if(idx>=nums.size())
+    {
+        return 0;
     }
+    return max(nums[idx]|solve(idx+1,nums),solve(idx+1,nums));
+}
+int solve1(int idx,vector<int>&nums,int exor,int x)
+{
+    if(idx>=nums.size() && exor==x)
+    {
+        return 1;
+    }
+    if(idx>=nums.size())
+    {
+        return 0;
+    }
+    return solve1(idx+1,nums,exor,x)+solve1(idx+1,nums,exor|nums[idx],x);
+}
     int countMaxOrSubsets(vector<int>& nums) {
-     // int maxi=0;
-     n=nums.size();
-      for(int i=0;i<nums.size();i++)
-      {
-        maxi=maxi|nums[i];
-      } 
-      solve(0,nums,0);
-      return count;
-
+       int x=solve(0,nums);
+        cout<<x<<endl;
+        return solve1(0,nums,0,x);
     }
 };
