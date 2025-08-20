@@ -1,38 +1,41 @@
 class Solution {
 public:
+int n,m;
+int solve(int i,int j,vector<vector<int>>&mat,vector<vector<int>>&dp)
+{
+    if(i>=n || j>=m)
+    {
+        return 0;
+    }
+    if(dp[i][j]!=-1)
+    {
+        return dp[i][j];
+    }
+    if(mat[i][j]==0)
+    {
+        return 0;
+    }
+    int sum=0;
+    int a=solve(i+1,j,mat,dp);
+    int b=solve(i+1,j+1,mat,dp);
+    int c=solve(i,j+1,mat,dp);
+    return dp[i][j]=1+min(min(a,b),c);
+
+}
     int countSquares(vector<vector<int>>& mat) {
-      int n=mat.size();
-      int m=mat[0].size();
-      vector<vector<int>>dp(n,vector<int>(m,0));
-      int count=0;
-      for(int i=0;i<n;i++)
-      {
-        if(mat[i][0]==1)
+        n=mat.size();
+        m=mat[0].size();
+     vector<vector<int>>dp(n,vector<int>(m,-1));
+     int sum=0;
+     for(int i=0;i<n;i++)
+     {
+        for(int j=0;j<m;j++)
         {
-            ++dp[i][0];
-            ++count;
+            sum+=solve(i,j,mat,dp);
         }
-      }
-      
-      for(int i=1;i<m;i++)
-      {
-        if(mat[0][i]==1)
-        {
-            ++dp[0][i];
-            ++count;
-        }
-      }
-      for(int i=1;i<n;i++)
-      {
-        for(int j=1;j<m;j++)
-        {
-            if(mat[i][j])
-            {
-              dp[i][j]=min({dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+1});
-              count+=dp[i][j];
-            }
-        }
-      } 
-      return count; 
+     }
+     return sum;
+
+
     }
 };
