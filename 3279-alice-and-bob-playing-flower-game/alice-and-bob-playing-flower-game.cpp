@@ -8,7 +8,7 @@ public:
         {
             ans+=m/2;
         }
-        if(i%2==0)
+        else if(i%2==0)
         {
 ans+=m/2+m%2;
         }
