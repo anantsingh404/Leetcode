@@ -9,10 +9,7 @@ public:
                 ++count;
             }
         }
-        if(count%2)
-        {
-            return true;
-        }
+        
         if(count==0)
         {
             return false;
