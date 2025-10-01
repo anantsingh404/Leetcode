@@ -1,7 +1,7 @@
 class Solution {
 public:
     int numWaterBottles(int nb, int ne) {
-        int count=nb;
+       int count=nb;
       while(nb>=ne)
       {
         int x=nb/ne;
@@ -9,6 +9,6 @@ public:
         nb=nb-x*ne;
         nb+=x;
       }  
-      return count;
+      return count; 
     }
 };
