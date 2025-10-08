@@ -9,7 +9,7 @@ public:
             ++x;
         }
         int idx=lower_bound(p.begin(),p.end(),x)-p.begin();
-        cout<<idx<<endl;
+        //cout<<idx<<endl;
         if(p.size()-idx>0)
         {
             s[i]=p.size()-idx;
