@@ -1,48 +1,27 @@
 class Solution {
 public:
-    int maxFrequency(vector<int>& nums, int k, int no) {
-         int n=nums.size();
-        
-        vector<pair<int,int>>vp;
-         set<int>s;
-        unordered_map<int,int>mp;
-        int co=0;
-        int mf=0;
-        int ac=0;
-        sort(nums.begin(),nums.end());
-        for(int i=0;i<n;i++)
-            {  
-                mp[nums[i]]++;
-                int x=nums[i]-k;
-                int y=nums[i]+k+1;
-                
-                vp.push_back({x,1});
-                vp.push_back({y,-1});
+    int maxFrequency(vector<int>& nums, int k, int numOperations) {
+      int ans = 1;
+        sort(nums.begin(), nums.end());
+        for (int target = nums[0]; target <= nums[nums.size() - 1]; target++) {
+            
+            int right = upper_bound(nums.begin(), nums.end(), target + k) -
+                        nums.begin();
+            int left = lower_bound(nums.begin(), nums.end(), target - k) -
+                       nums.begin(); 
+            int total_ele=right-left;
+            
+            int lb=lower_bound(nums.begin(),nums.end(),target)-nums.begin();
+            int ub = upper_bound(nums.begin(), nums.end(), target) - nums.begin();
+            int noOpEle = ub - lb;
+
+            
+            if (total_ele - noOpEle <= numOperations) {
+                ans = max(ans, right - left);
+            } else { 
+                ans = max(ans, numOperations + noOpEle);
             }
-         for(auto itr:mp)
-            {
-                s.insert(itr.first);
-            }
-        for(int i=0;i<vp.size();i++)
-            {
-                s.insert(vp[i].first);
-            }
-        
-        sort(vp.begin(),vp.end());
-        int i=0;
-        for(auto temp:s)
-            {
-                while(i<vp.size() && vp[i].first<=temp)
-                    {
-                        co=co+vp[i].second;
-                        ++i;
-                    }
-                ac=mp[temp];
-                 
-                int fla=ac+min(no,co-ac);
-                mf=max(mf,fla);
-            }
-        return mf;
-      
+        }
+        return ans;  
     }
 };
