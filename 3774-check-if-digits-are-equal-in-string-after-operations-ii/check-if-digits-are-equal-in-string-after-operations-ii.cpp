@@ -1,13 +1,13 @@
 class Solution {
 public:
-    // For CRT
+    
     const int MOD = 10;  
-    const int MAXN = 1e6; // you can adjust if needed
+    const int MAXN = 1e6; 
 
     vector<int> fact2, fact5;
     vector<int> invFact2, invFact5;
 
-    // Precompute factorials modulo p
+    
     void precomputeFactorials(int p, vector<int> &fact, vector<int> &invFact) {
         fact[0] = 1;
         for (int i = 1; i < p; i++) {
@@ -19,7 +19,7 @@ public:
         }
     }
 
-    // Fast exponentiation
+    
     int modPow(int a, int b, int m) {
         int res = 1;
         a = a % m;
@@ -30,16 +30,12 @@ public:
         }
         return res;
     }
-
-    // Compute nCr mod p using factorial precomputation
     int nCrModP(int n, int r, int p, vector<int> &fact, vector<int> &invFact) {
         if (r < 0 || r > n) return 0;
         int res = (1LL * fact[n % p] * invFact[r % p]) % p;
         res = (1LL * res * invFact[(n - r) % p]) % p;
         return res;
     }
-
-    // Compute nCr mod 2 using Lucas Theorem
     int nCrMod2(int n, int r) {
         int res = 1;
         while (n > 0 || r > 0) {
@@ -51,8 +47,6 @@ public:
         }
         return 1;
     }
-
-    // Compute nCr mod 5 using Lucas Theorem
     int nCrMod5(int n, int r) {
         int res = 1;
         while (n > 0 || r > 0) {
@@ -66,11 +60,10 @@ public:
         return res;
     }
 
-    // Combine results using CRT
     int nCrMod10(int n, int r) {
         int a2 = nCrMod2(n, r);
         int a5 = nCrMod5(n, r);
-        int x = (a5 * 2 * 3 + a2 * 5 * 1) % 10; // 2^-1 mod5 =3, 5^-1 mod2=1
+        int x = (a5 * 2 * 3 + a2 * 5 * 1) % 10; 
         return x;
     }
 
@@ -88,11 +81,9 @@ public:
         for (int i = 0; i < n - 1; i++) {
             x = (x + 1LL * (s[i] - '0') * nCrMod10(n - 2, i)) % 10;
         }
-        int p=0;
         for (int i = n - 1; i > 0; i--) {
-            y = (y + 1LL * (s[i] - '0') * nCrMod10(n - 2, p++)) % 10;
+            y = (y + 1LL * (s[i] - '0') * nCrMod10(n - 2, n-1-i)) % 10;
         }
-        cout<<x<<" "<<y<<endl;
         return x == y;
     }
 };
