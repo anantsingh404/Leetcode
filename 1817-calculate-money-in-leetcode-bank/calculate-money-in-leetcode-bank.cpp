@@ -2,23 +2,21 @@ class Solution {
 public:
     int totalMoney(int n) {
       int x=n/7;
-      int p=x;
+      int start=1+x;
+      int q=n%7;
       int sum=x*28;
-      --x;
-      int i=1;
-      while(x>0)
+      while(x>1)
       {
-          sum+=(i*7);
-          i++;
+          sum+=((x-1)*7);
           --x;
 
       }
       if(n%7)
       {
-        int start=1+p;
-        int q=n%7;
         while(q--)
-        {sum+=start++;}
+        {
+            sum+=start++;
+        }
       }
       return sum;
 
