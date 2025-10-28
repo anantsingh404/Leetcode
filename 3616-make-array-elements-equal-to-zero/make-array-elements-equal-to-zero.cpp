@@ -16,9 +16,12 @@ public:
         right[i]=nums[i]+right[i+1];
       } 
       for(int i=0;i<n;i++)
-      { if(nums[i]!=0){
+      { 
+        if(nums[i]!=0)
+         {
         continue;
-      } if(abs(left[i]-right[i])==0)
+         } 
+         if(abs(left[i]-right[i])==0)
         {
             sum+=2;
         }
