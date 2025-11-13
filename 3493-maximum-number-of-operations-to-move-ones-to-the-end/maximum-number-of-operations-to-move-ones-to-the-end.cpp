@@ -1,38 +1,30 @@
 class Solution {
 public:
     int maxOperations(string s) {
-       int n=s.size();
-       string temp;
-       int ans=0;
-       unordered_map<char,int>mp;
-       for(int i=0;i<n;i++)
-       {
-        if(temp.empty())
+     int n=s.size();
+     vector<int>dp;
+     int count=0;
+     int ans=0;
+     int i=n-1;
+     while(i>=0)
+     {
+        if(s[i]=='0')
         {
-            temp.push_back(s[i]);
-        }
-        else if(s[i]=='0' && temp.back()=='0')
-        {
-            continue;
-        }
-        else
-        {
-            temp.push_back(s[i]);
-        }
-       }
-       n=temp.size();
-       for(int i=0;i<n;i++)
-       {
-        if(temp[i]=='1')
-        {
-            mp['1']++;
+            int j=i;
+            while(j>=0 && s[j]==s[i])
+            {
+                j--;
+            }
+            i=j;
+            ++count;
         }
         else
         {
-            ans+=mp['1'];
-        }
+            ans+=count;
+            --i;
 
-       }
-       return ans;
+        }
+     }
+     return ans;  
     }
 };
