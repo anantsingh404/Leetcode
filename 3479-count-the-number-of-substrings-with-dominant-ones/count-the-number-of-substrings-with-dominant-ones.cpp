@@ -1,39 +1,37 @@
 class Solution {
 public:
     int numberOfSubstrings(string s) {
-        int ans=0, len=s.length();
-        vector<int> prefix(len, 0);
+       int n = s.size();
+        vector<int> zero;
+        for (int i = 0; i < n; i++) {
+            if (s[i] == '0') zero.push_back(i);
+        }
+        int ones = n - zero.size(); 
+        zero.push_back(n); 
 
-        for(int i=0 ; i<len ; i++)
-            prefix[i] += s[i]=='1' ? (i==0 ? 1 : prefix[i-1]+1) : (i==0 ? 0 : prefix[i-1]);
-        
-        for(int i=0 ; i<len ; i++) {
-            for(int j=i ; j<len ; j++) {
-                int ones = prefix[j] - (i==0 ? 0 : prefix[i-1]);
-                int zeros = (j-i+1) - ones;
+        int res = 0, sid = 0; 
 
-                if(ones >= zeros*zeros)
-                {
-                    ans++;
-                    int k = sqrt(ones);
-
-                    if(k > zeros)
-                    ans += (j+(k-zeros) >= len ? (len-j-1) : (k-zeros));
-
-                    j += (k-zeros);
-                }
-                else
-                j += (zeros*zeros - ones - 1);
-
-
-                if(zeros*zeros>(len-i-zeros))
-                {
-                    break;
+        for (int left = 0; left < n; left++) {
+           
+            for (int id = sid; id < zero.size() - 1; id++) {
+                int cnt0 = id - sid + 1; 
+                if (cnt0 * cnt0 > ones) break;
+                int p = zero[id], q = zero[id + 1];
+                int cnt1 = zero[id] - left - (id - sid);
+                if (cnt1 >= cnt0 * cnt0) {
+                    res += q - p;
+                } else {
+                    res += max(q - p - (cnt0 * cnt0 - cnt1), 0);
                 }
             }
-
+            if (s[left] == '0') {
+                sid++;
+            } else {
+               
+                res += zero[sid] - left;
+                ones--;
+            }
         }
-
-        return ans; 
+        return res;  
     }
 };
