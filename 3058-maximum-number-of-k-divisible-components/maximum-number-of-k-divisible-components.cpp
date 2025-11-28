@@ -24,8 +24,9 @@ int solve(int idx,int parent)
     return temp%kk;
 
 }
-    int maxKDivisibleComponents(int n, vector<vector<int>>& edges, vector<int>& values, int k) {
-        val.resize(n);
+    int maxKDivisibleComponents(int n, vector<vector<int>>& edges, vector<int>& values, int k)
+    {
+    val.resize(n);
         val.assign(values.begin(),values.end());
         adj.resize(n);
         kk=k;
@@ -38,7 +39,5 @@ int solve(int idx,int parent)
         }
         solve(0,-1);
         return count;
-
-
     }
 };
