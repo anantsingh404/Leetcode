@@ -51,7 +51,7 @@ class Solution {
     }
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
       int depth=solve(root);
-      System.out.println(depth);
+      //System.out.println(depth);
       
       solve1(root,depth,1);
       return x;  
