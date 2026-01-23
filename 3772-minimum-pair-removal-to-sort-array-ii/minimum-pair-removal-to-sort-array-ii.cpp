@@ -5,14 +5,14 @@ public:
        int n = nums.size();
         if (n <= 1)
             return 0;
-
         vector<ll> arr(nums.begin(), nums.end());
         vector<bool> removed(n, false);
         priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<>> pq;
 
         int sorted = 0;
-        for (int i = 1; i < n; ++i) {
-            pq.emplace(arr[i - 1] + arr[i], i - 1);
+        for (int i = 1; i < n; ++i) 
+        {
+            pq.emplace(arr[i-1]+arr[i],i-1);
             if (arr[i] >= arr[i - 1])
                 sorted++;
         }
