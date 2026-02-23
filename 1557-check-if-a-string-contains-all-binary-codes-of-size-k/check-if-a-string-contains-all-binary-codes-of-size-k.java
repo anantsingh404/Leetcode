@@ -2,7 +2,7 @@ class Solution {
     public boolean hasAllCodes(String s, int k) {
       HashSet<String>st=new HashSet<>();
       int n=s.length();
-      char [] arr=s.toCharArray();
+      
       for(int i=0;i<=n-k;i++)
       {
         String x=s.substring(i,i+k);
