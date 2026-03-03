@@ -1,6 +1,7 @@
 class Solution {
     public char findKthBit(int n, int k) {
-        StringBuilder s1 = new StringBuilder("0");  
+        String s="0";
+        StringBuilder s1 = new StringBuilder(s);  
         while(s1.length()<k) 
         {
             StringBuilder s2=new StringBuilder(s1);
