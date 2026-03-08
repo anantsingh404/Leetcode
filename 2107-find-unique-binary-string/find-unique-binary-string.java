@@ -2,7 +2,10 @@ class Solution {
     String ans = "";
 
     void solve(int n, HashMap<String, Integer> mp, StringBuilder temp) {
-
+        if(ans.length()>0)
+        {
+            return;
+        }
         if (temp.length() == n) {
             String s = temp.toString();
             if (!mp.containsKey(s)) {
