@@ -21,7 +21,7 @@ matrix[i][j]+=matrix[i-1][j];
         for(int j=0;j<m;j++)
         {   
             ans=Math.max((ls.get(j)*(m-j)),ans);
-            System.out.println(ans);
+           // System.out.println(ans);
         }
       }
 return ans;
