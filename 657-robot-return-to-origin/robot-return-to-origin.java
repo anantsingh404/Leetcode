@@ -8,15 +8,15 @@ class Solution {
         {
             --x;
         }
-        if(s.charAt(i)=='R')
+        else if(s.charAt(i)=='R')
         {
             ++x;
         }
-        if(s.charAt(i)=='U')
+        else if(s.charAt(i)=='U')
         {
             --y;
         }
-        if(s.charAt(i)=='D')
+        else if(s.charAt(i)=='D')
         {
             ++y;
         }
