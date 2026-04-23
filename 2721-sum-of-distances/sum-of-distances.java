@@ -13,7 +13,7 @@ class Solution {
             long c = count.getOrDefault(val, 0L);
             long s = sum.getOrDefault(val, 0L);
 
-            dp[i] = dp[i] + (c * i - s);
+            dp[i] = (c * i - s);
 
             count.put(val, c + 1);
             sum.put(val, s + i);
