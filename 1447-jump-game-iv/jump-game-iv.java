@@ -38,14 +38,14 @@ class Solution {
         // Start at index 0 with 0 steps
         pq.add(new Pair(0, 0));
         visited[0] = 0;
-
-        while (!pq.isEmpty()) {
+        while (!pq.isEmpty()) 
+        {
             Pair current = pq.poll();
             int steps = current.first;
             int idx = current.second;
-
             // If we found a better path to this index already, skip processing
-            if (steps > visited[idx]) {
+            if (steps > visited[idx]) 
+            {
                 continue;
             }
 
