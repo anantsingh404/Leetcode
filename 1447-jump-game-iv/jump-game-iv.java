@@ -25,8 +25,13 @@ class Solution {
         // Group indices by their array values
         Map<Integer, List<Integer>> graph = new HashMap<>();
         for (int i = 0; i < n; i++) {
-            graph.computeIfAbsent(arr[i], v -> new ArrayList<>()).add(i);
-        }
+    // If the key isn't there, put a new list in the map
+    if (!graph.containsKey(arr[i])) {
+        graph.put(arr[i], new ArrayList<>());
+    }
+    // Now that we're sure the list exists, get it and add the index
+    graph.get(arr[i]).add(i);
+}
 
         // Min-Heap using your custom Pair class
         PriorityQueue<Pair> pq = new PriorityQueue<>();
