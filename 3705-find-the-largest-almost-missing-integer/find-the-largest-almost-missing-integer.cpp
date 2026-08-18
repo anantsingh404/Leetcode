@@ -22,19 +22,20 @@ public:
      }
      
      if(k==1)
-     { int emp=-1;
+     { 
+        int ans=-1;
        for(auto itr:fa){
         int x=itr.second;
         int y=la[itr.first];
         if(x!=y){
             continue;
         }
-        else if(itr.first>emp)
+        else if(itr.first>ans)
         {
-            emp=itr.first;
+            ans=itr.first;
         }
      }
-     return emp;      
+     return ans;      
      }
      if(k>n)
      {
@@ -48,9 +49,11 @@ public:
      {
         return nums[n-1];
      } 
-     if(la[nums[n-1]]-fa[nums[n-1]]!=0) {
-        return nums[0];
-     } return max(nums[0],nums[n-1]);
+     if(la[nums[n-1]]-fa[nums[n-1]]!=0)
+     {
+       return nums[0];
+     }
+      return max(nums[0],nums[n-1]);
 
     }
 };
