@@ -19,6 +19,7 @@ int solve(int idx,vector<vector<int>>&ispal,vector<int>&dp)
         if(ispal[idx][j]==1)
         {
             ans=max(ans,1+solve(j+1,ispal,dp));
+            break;
         }
     }
     return dp[idx]=ans;
