@@ -1,13 +1,18 @@
 class Solution {
     int n;
     int m;
+    boolean ans;
     int solve(int i,int j,int sum,char [][]grid,int [][][]dp){
+        if(ans==true)
+        {
+            return 1;
+        }
         if(i>=n || j>=m)
         {
             return 0;
         }
         if(i==n-1 && j==m-1 && sum==1 && grid[i][j]==')')
-        {
+        {   ans=true;
             return 1;
         }
         if(dp[i][j][sum]!=-1)
@@ -35,7 +40,7 @@ class Solution {
 
     }
     public boolean hasValidPath(char[][] grid) {
-       n=grid.length;
+       n=grid.length;ans=false;
        m=grid[0].length;
        int dp[][][]=new int[201][201][201];
        for(int i=0;i<201;i++)
