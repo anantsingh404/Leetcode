@@ -1,43 +1,31 @@
 class Solution {
-    // Replaced heavy Stack object with a fast primitive integer counter
-    boolean Check(StringBuilder s) {
-        int balance = 0;
-        int n = s.length();
-        for (int i = 0; i < n; i++) {
-            char x = s.charAt(i);
-            if (x == '(') {
-                balance++;
-            } else {
-                balance--;
-            }
-            // If balance goes negative, a closing bracket appeared without an opening one
-            if (balance < 0) return false; 
-        }
-        return balance == 0;
-    }
-
-    void solve(int n, StringBuilder temp, List<String> ls) {
-        if (n == 0) {
-            if (Check(temp)) {
-                ls.add(temp.toString());
-            }
+    void solve(int open, int close, int n, StringBuilder temp, List<String> ls) {
+        // Base case: If we have used all n open and n close brackets, it's valid
+        if (temp.length() == 2 * n) {
+            ls.add(temp.toString());
             return;
         }
-        
-        // Minor tweak: Flipped order to append '(' first, as valid strings must start with '('
-        temp.append('(');
-        solve(n - 1, temp, ls);
-        temp.deleteCharAt(temp.length() - 1);
 
-        temp.append(')');
-        solve(n - 1, temp, ls);
-        temp.deleteCharAt(temp.length() - 1);
+        // Optimization: Only add '(' if we haven't reached the limit 'n'
+        if (open < n) {
+            temp.append('(');
+            solve(open + 1, close, n, temp, ls);
+            temp.deleteCharAt(temp.length() - 1); // Backtrack
+        }
+
+        // Optimization: Only add ')' if it physically matches a preceding '('
+        if (close < open) {
+            temp.append(')');
+            solve(open, close + 1, n, temp, ls);
+            temp.deleteCharAt(temp.length() - 1); // Backtrack
+        }
     }
 
     public List<String> generateParenthesis(int n) {
         List<String> ls = new ArrayList<>();
         StringBuilder temp = new StringBuilder();
-        solve(2 * n, temp, ls);  
+        // Start with 0 open and 0 close brackets placed
+        solve(0, 0, n, temp, ls);  
         return ls;
     }
 }
