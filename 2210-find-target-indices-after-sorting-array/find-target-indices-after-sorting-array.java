@@ -8,6 +8,10 @@ class Solution {
         {
             ls.add(i);
         }
+        if(nums[i]!=target && ls.size()>0)
+        {
+            break;
+        }
        } 
        return ls;
     }
