@@ -10,15 +10,17 @@ class Solution {
         {
             return dp[i][j][exor];
         }
-        int a=Integer.MAX_VALUE;
-        int b=Integer.MAX_VALUE;
+        int bottomove=Integer.MAX_VALUE;
+        int rightmove=Integer.MAX_VALUE;
         if(i+1<n)
         {
-        a=solve(i+1,j,exor^grid[i][j],grid,dp);
-        }if(j+1<m){
-        b=solve(i,j+1,exor^grid[i][j],grid,dp);
+        bottomove=solve(i+1,j,exor^grid[i][j],grid,dp);
         }
-        return dp[i][j][exor]=Math.min(a,b);
+        if(j+1<m)
+        {
+        rightmove=solve(i,j+1,exor^grid[i][j],grid,dp);
+        }
+        return dp[i][j][exor]=Math.min(bottomove,rightmove);
 
     }
     public int minCost(int[][] grid) {
