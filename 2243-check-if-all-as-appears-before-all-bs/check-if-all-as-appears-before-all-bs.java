@@ -7,7 +7,8 @@ class Solution {
         if(x=='b')
         {
             bexist=1;
-        }if(x=='a' && bexist==1)
+        }
+        else if(x=='a' && bexist==1)
         {
             return false;
         }
