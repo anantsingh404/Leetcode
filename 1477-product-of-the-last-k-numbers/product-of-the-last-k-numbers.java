@@ -1,33 +1,24 @@
 class ProductOfNumbers {
-    private List<Integer> ls;
+    private final int[] prefix = new int[40001];
+    private int size = 0;
 
     public ProductOfNumbers() {
-        ls = new ArrayList<>();
+        prefix[0] = 1; // Sentinel value to simplify division
     }
     
     public void add(int num) {
-        if (num == 0) 
-        {
-            ls.clear();
-        } 
-        else if (!ls.isEmpty()) {
-            ls.add(ls.get(ls.size() - 1) * num);
-        }
-         else
-         {
-            ls.add(num);
+        if (num == 0) {
+            size = 0; // Reset pointer in O(1) without clearing memory
+        } else {
+            size++;
+            prefix[size] = prefix[size - 1] * num;
         }
     }
     
     public int getProduct(int k) {
-        int n = ls.size();
-        
-        if (k > n) {
+        if (k > size) {
             return 0;
         }
-        if (k == n) {
-            return ls.get(n - 1);
-        }
-        return ls.get(n - 1) / ls.get(n - 1 - k);
+        return prefix[size] / prefix[size - k];
     }
 }
